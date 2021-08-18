@@ -6,12 +6,21 @@ module.exports = (params) => {
 
   router.get("/", async (req, res) => {
     const books = await bookService.getBooks();
-    //console.log(books);
-    return res.json(books);
+    //return res.json(books);
+    res.render("layout", {
+      pageTitle: `List of books`,
+      template: "books",
+      books,
+    });
   });
   router.get("/:bookname", async (req, res) => {
     const book = await bookService.getBook(req.params.bookname);
-    return res.json(book);
+    //return res.json(book);
+    res.render("layout", {
+      pageTitle: `Book detail`,
+      template: "book-detail",
+      book,
+    });
   });
   router.post("/", (req, res) => {
     return res.send("Added new book");
